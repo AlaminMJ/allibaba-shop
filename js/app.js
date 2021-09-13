@@ -5,13 +5,28 @@ const loadProducts = () => {
 };
 
 
+
+// rating icon 
+const getRating = (rate, id)=>{
+
+   const parcentace =( rate / 5 )  *  100;
+   const roundParcentace = (Math.round(parcentace / 10) * 10) + '%';
+   const pid = document.querySelector(`#pid${id} .star-inner` )
+   pid.style.width = roundParcentace;
+}
+
+
+
 // show all product in UI 
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
+   
+    
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
+    div.setAttribute('id', `pid${product.id}`)
     div.innerHTML = `<div class="single-product">
       <div>
     <img class="product-image" src=${image}></img>
@@ -19,10 +34,17 @@ const showProducts = (products) => {
       <h3 class='product-title'>${product.title}</h3>
       <p>Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
+        <div class="rate">
+         <div class="star-outer">
+           <div class="star-inner"></div>
+         </div>
+         <P>${product.rating.rate} out of ${product.rating.count} </p>
+       </div>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
+    getRating(product.rating.rate ,product.id);
   }
 };
 let count = 0;
@@ -33,6 +55,11 @@ const addToCart = (id, price) => {
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
+
+// rating icon 
+
+
+
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
@@ -78,7 +105,6 @@ const updateTotal = () => {
   const grandTotal =
     getInputValue("price") + getInputValue("delivery-charge") +
     getInputValue("total-tax");
-//   document.getElementById("total").innerText = grandTotal;
-  setInnerText("total",grandTotal)
+    setInnerText("total",grandTotal)
 };
 loadProducts();
