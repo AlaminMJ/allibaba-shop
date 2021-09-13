@@ -14,7 +14,7 @@ const showProducts = (products) => {
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
       <div>
-    <img class="product-image" src='${image}'></img>
+    <img class="product-image" src=${image}></img>
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
@@ -35,13 +35,9 @@ const addToCart = (id, price) => {
 };
 
 const getInputValue = (id) => {
-  const element =document.getElementById(id).innerText;
+  const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
   return converted;
-};
-// set innerText function
-const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = parseFloat( value.toFixed(2));
 };
 
 // main price update function
@@ -49,12 +45,15 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  setInnerText(id,total);
-  updateTotal();
-  updateTaxAndCharge()
+  document.getElementById(id).innerText = total.toFixed(2);
+   updateTotal()
+
 };
 
-
+// set innerText function
+const setInnerText = (id, value) => {
+  document.getElementById(id).innerText = value.toFixed(2);
+};
 
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
@@ -76,8 +75,9 @@ const updateTaxAndCharge = () => {
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price").toFixed(2) + getInputValue("delivery-charge").toFixed(2) +
-    getInputValue("total-tax").toFixed(2) ;
-  setInnerText("total",grandTotal )
+    getInputValue("price") + getInputValue("delivery-charge") +
+    getInputValue("total-tax");
+//   document.getElementById("total").innerText = grandTotal;
+  setInnerText("total",grandTotal)
 };
 loadProducts();
