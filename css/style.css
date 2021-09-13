@@ -2,6 +2,7 @@ body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
 }
+
 .search-field {
   border: none;
   border-radius: 50px;
@@ -15,20 +16,20 @@ body {
 .search-box {
   border: 1px solid rgb(3, 118, 211);
   width: 281px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   margin: auto;
   margin-top: 50px;
-  border-right: none;
 }
 .search-button {
-  padding: 10px 50px;
-  border-radius: 25px;
-  margin-left: 20px;
+  padding: 10px 50px; 
+  /* border-radius: 25px;*/
+
 }
 #all-products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* border: 1px solid black; */
+  gap: 20px;
+
   text-align: center;
   width: 100%;
   margin: auto;
@@ -37,12 +38,12 @@ body {
 }
 .single-product {
   padding: 10px;
-  transition: 0.6s;
+  transition: 0.5s;
 }
 .single-product:hover {
-  box-shadow: 4px 4px 7px gray;
-  border-radius: 10px;
-  border: 1px solid cyan;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  
 }
 .product-image {
   width: 150px;

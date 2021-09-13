@@ -9,12 +9,12 @@ const loadProducts = () => {
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    const image = product.images;
+    const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
       <div>
-    <img class="product-image" src=${image}></img>
+    <img class="product-image" src='${image}'></img>
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
@@ -35,9 +35,13 @@ const addToCart = (id, price) => {
 };
 
 const getInputValue = (id) => {
-  const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const element =document.getElementById(id).innerText;
+  const converted = parseFloat(element);
   return converted;
+};
+// set innerText function
+const setInnerText = (id, value) => {
+  document.getElementById(id).innerText = parseFloat( value.toFixed(2));
 };
 
 // main price update function
@@ -45,13 +49,12 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  setInnerText(id,total);
+  updateTotal();
+  updateTaxAndCharge()
 };
 
-// set innerText function
-const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
-};
+
 
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
@@ -73,8 +76,8 @@ const updateTaxAndCharge = () => {
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
-    getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+    getInputValue("price").toFixed(2) + getInputValue("delivery-charge").toFixed(2) +
+    getInputValue("total-tax").toFixed(2) ;
+  setInnerText("total",grandTotal )
 };
 loadProducts();
